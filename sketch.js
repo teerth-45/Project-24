@@ -1,34 +1,21 @@
-var options={
-	isStatic:false,
-	restitution:0.3,
-	friction:0.5,
-	density:1.2
-}
 const Engine = Matter.Engine;
 const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
 
 var rec1, rec2, rec3;
-var paperObject;
+var paperObject, groundObject, dustbinObject;
 
 function setup() {
-	createCanvas(800, 700);
+	createCanvas(1600, 700);
+	rectMode(CENTER);
 
 	engine = Engine.create();
 	world = engine.world;
 
-	//Create the Bodies Here.
-	rec1=createSprite(600,640,10,50);
-	rec1.shapeColor=color("red");
-	rec2=createSprite(700,640,10,50);
-	rec2.shapeColor=color("red");
-	rec3=createSprite(650,660,100,10);
-	rec3.shapeColor=color("red");
-
-	groundSprite=createSprite(width/2, height-35, width,10);
-	groundSprite.shapeColor=color(255)
-
+	paperObject= new paper(200,450,40);
+	groundObject= new ground(width/2,670,width,20);
+	dustbinObject=new dustbin(1200,650);
 
 	Engine.run(engine);
   
@@ -39,7 +26,13 @@ function draw() {
   rectMode(CENTER);
   background(0);
   
+  ///paperObject.collide(groundSprite);
+
   drawSprites();
+
+  paperObject.display();
+  groundObject.display();
+  dustbinObject.display();
  
 }
 
